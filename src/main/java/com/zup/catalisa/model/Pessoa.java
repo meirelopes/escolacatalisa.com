@@ -31,7 +31,6 @@ public  class Pessoa {
    // @Embedded
     private String email;
    // @Embedded
-    @JsonIgnore
     @OneToOne
     private Endereco endereco;
 

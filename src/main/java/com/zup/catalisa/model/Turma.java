@@ -1,5 +1,6 @@
 package com.zup.catalisa.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zup.catalisa.enumeracao.Turno;
 import lombok.Data;
 
@@ -19,7 +20,8 @@ public class Turma {
     @Enumerated(EnumType.STRING)
     private Turno turno;
     private String localizacao;
-    @OneToMany
+    @OneToMany(mappedBy = "turma")
+    @JsonIgnore
     private List<Aluno> alunos = new ArrayList<>();;
 
 }

@@ -14,7 +14,7 @@ import java.util.List;
 //@Embeddable
 public class Professor extends Pessoa {
 
-    @OneToMany
+    @OneToMany(mappedBy = "professor")
     @JsonIgnore
     private List<Disciplina> disciplinas = new ArrayList<>();;
     private BigDecimal salario;

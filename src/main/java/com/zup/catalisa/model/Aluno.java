@@ -8,7 +8,7 @@ import java.util.List;
 /*
 1. Cadastro de alunos -
 2. Cadastro de curso - OK
-3. Cadastro de professor -
+3. Cadastro de professor - OK
 4. Listar todos os alunos - OK
 5. Listar todos os professores - OK
 6. Listar todos os cursos - OK
@@ -35,11 +35,12 @@ DTOs:
 public class Aluno extends Pessoa {
     @OneToOne
     private Matricula matricula;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Curso curso;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<Disciplina> disciplinas = new ArrayList<>();
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
+    //@JoinColumn(name = "turma_codigo")
     private Turma turma;
 
 }

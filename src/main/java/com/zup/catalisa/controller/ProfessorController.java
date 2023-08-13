@@ -1,5 +1,6 @@
 package com.zup.catalisa.controller;
 
+import com.zup.catalisa.dto.saida.ProfessorDtoSaida;
 import com.zup.catalisa.model.Professor;
 import com.zup.catalisa.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,15 @@ public class ProfessorController {
     }
 
     @PostMapping
-    public Professor cadastrar(@RequestBody Professor professor) {
+    public ProfessorDtoSaida cadastrar(@RequestBody Professor professor) {
+        Professor professorSalvo = professoresService.cadastrar(professor);
+        ProfessorDtoSaida professorDtoSaida = new ProfessorDtoSaida();
 
-        return professoresService.cadastrar(professor);
+        professorDtoSaida.setId(professorSalvo.getId());
+        professorDtoSaida.setNome(professorSalvo.getNome());
+        professorDtoSaida.setEmail(professorSalvo.getEmail());
+
+        return professorDtoSaida;
 
     }
 

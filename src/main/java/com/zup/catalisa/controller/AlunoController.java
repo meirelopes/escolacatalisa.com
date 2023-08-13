@@ -106,7 +106,7 @@ public class AlunoController {
 
         // Preencher curso e turma
         CursoDtoSaida cursoDtoSaida = new CursoDtoSaida();
-        //cursoDtoSaida.setId(alunoSalvo.getCurso().getId());
+        cursoDtoSaida.setId(alunoSalvo.getCurso().getId());
         cursoDtoSaida.setNome(alunoSalvo.getCurso().getNome());
         alunoMatriculaDtoSaida.setCurso(cursoDtoSaida);
 
