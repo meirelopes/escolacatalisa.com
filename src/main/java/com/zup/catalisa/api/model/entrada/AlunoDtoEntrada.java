@@ -1,16 +1,16 @@
-package com.zup.catalisa.dto.entrada;
+package com.zup.catalisa.api.model.entrada;
 
-import com.zup.catalisa.model.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
-public class AlunoMatriculaDtoEntrada {
+public class AlunoDtoEntrada {
 
     private Long id;
+    @NotNull
     private String nome;
     private String idade;
     private String cpf;
@@ -18,8 +18,8 @@ public class AlunoMatriculaDtoEntrada {
     private String email;
     private EnderecoIdDtoEntrada enderecoIdDtoEntrada;
 
-    private CursoIdDtoEntrada cursoIdDtoEntrada;
-    private TurmaIdDtoEntrada turmaIdDtoEntrada;
+    private CursoDtoEntrada cursoIdDtoEntrada;
+    private TurmaDtoEntrada turmaIdDtoEntrada;
     private MatriculaDtoEntrada matriculaDto;
 
 }

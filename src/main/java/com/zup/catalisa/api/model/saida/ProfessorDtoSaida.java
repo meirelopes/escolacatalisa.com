@@ -1,12 +1,14 @@
-package com.zup.catalisa.dto.saida;
+package com.zup.catalisa.api.model.saida;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class TurmaDtoSaida {
+public class ProfessorDtoSaida {
+
     private Long id;
     private String nome;
+    private String email;
 
 }

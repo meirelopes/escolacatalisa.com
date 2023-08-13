@@ -1,6 +1,6 @@
-package com.zup.catalisa.controller;
+package com.zup.catalisa.api.controller;
 
-import com.zup.catalisa.dto.saida.ProfessorDtoSaida;
+import com.zup.catalisa.api.model.saida.ProfessorDtoSaida;
 import com.zup.catalisa.model.Professor;
 import com.zup.catalisa.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;

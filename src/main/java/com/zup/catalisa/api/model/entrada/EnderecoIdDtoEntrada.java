@@ -1,4 +1,4 @@
-package com.zup.catalisa.dto.entrada;
+package com.zup.catalisa.api.model.entrada;
 
 import lombok.Getter;
 import lombok.Setter;

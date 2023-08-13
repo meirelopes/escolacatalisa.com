@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 /*
-1. Cadastro de alunos -
+1. Cadastro de alunos - OK
 2. Cadastro de curso - OK
 3. Cadastro de professor - OK
 4. Listar todos os alunos - OK

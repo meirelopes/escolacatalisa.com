@@ -1,11 +1,8 @@
-package com.zup.catalisa.dto.saida;
+package com.zup.catalisa.api.model.saida;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.time.LocalDate;
 @Getter
 @Setter

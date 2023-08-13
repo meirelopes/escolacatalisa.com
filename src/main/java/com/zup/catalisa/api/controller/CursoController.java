@@ -1,4 +1,4 @@
-package com.zup.catalisa.controller;
+package com.zup.catalisa.api.controller;
 
 import com.zup.catalisa.model.Curso;
 import com.zup.catalisa.service.CursoService;

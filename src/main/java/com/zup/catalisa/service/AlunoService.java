@@ -1,8 +1,7 @@
 package com.zup.catalisa.service;
 
-import com.zup.catalisa.dto.saida.AlunoMatriculaDtoSaida;
 import com.zup.catalisa.model.Aluno;
-import com.zup.catalisa.model.Matricula;
+import com.zup.catalisa.model.Disciplina;
 import com.zup.catalisa.repository.AlunoRepository;
 import com.zup.catalisa.repository.MatriculaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -18,10 +18,18 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
     @Autowired
     private MatriculaRepository matriculaRepository;
+    @Autowired
+    private DisciplinaService disciplinaService;
 
     public List<Aluno> listar() {
 
         return alunoRepository.findAll();
+
+    }
+
+    public Optional<Aluno> buscarPorId(Long id) {
+
+        return alunoRepository.findById(id);
 
     }
 
@@ -35,6 +43,28 @@ public class AlunoService {
     public Aluno cadastrar(Aluno aluno) {
 
         return alunoRepository.save(aluno);
+
+    }
+
+    public Aluno atualizarCurso(Long id, Aluno aluno) {
+
+        return null;
+
+    }
+
+    public Disciplina adicionarDisciplina(Long disciplinaId, Long alunoId) {
+
+        Disciplina disciplina = disciplinaService.listarPorId(disciplinaId).orElse(null);
+
+        Aluno aluno = buscarPorId(alunoId).orElse(null);
+
+        List<Disciplina> lista = aluno.getDisciplinas();
+
+        lista.add(disciplina);
+
+        alunoRepository.save(aluno);
+
+        return disciplina;
 
     }
 

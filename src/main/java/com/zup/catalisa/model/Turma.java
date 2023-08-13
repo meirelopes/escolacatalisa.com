@@ -22,6 +22,8 @@ public class Turma {
     private String localizacao;
     @OneToMany(mappedBy = "turma")
     @JsonIgnore
-    private List<Aluno> alunos = new ArrayList<>();;
+    private List<Aluno> alunos = new ArrayList<>();
+    @ManyToOne
+    private Curso curso;
 
 }

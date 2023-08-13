@@ -1,11 +1,11 @@
-package com.zup.catalisa.dto.entrada;
+package com.zup.catalisa.api.model.entrada;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CursoIdDtoEntrada {
+public class CursoDtoEntrada {
 
     private Long cursoId;
 
