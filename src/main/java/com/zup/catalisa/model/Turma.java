@@ -23,7 +23,7 @@ public class Turma {
     @OneToMany(mappedBy = "turma")
     @JsonIgnore
     private List<Aluno> alunos = new ArrayList<>();
-    @ManyToOne
+    @ManyToOne//(cascade=CascadeType.ALL)
     private Curso curso;
 
 }

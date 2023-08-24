@@ -39,7 +39,9 @@ public class AlunoController {
     @GetMapping("/{id}")
     public Optional<Aluno> buscarPorId(@PathVariable Long id) {
 
-        return alunoService.buscarPorId(id);
+        Optional<Aluno> aluno = (alunoService.buscarPorId(id));
+        System.out.println(aluno);
+        return aluno;
 
     }
 
@@ -51,92 +53,93 @@ public class AlunoController {
     }
 
     @PostMapping("/adicionardisciplina/{disciplinaId}/{alunoId}")
-    public Disciplina adicionarDisciplina(@PathVariable Long disciplinaId,@PathVariable Long alunoId) {
+    public Disciplina adicionarDisciplina(@PathVariable Long disciplinaId, @PathVariable Long alunoId) {
 
         return alunoService.adicionarDisciplina(disciplinaId, alunoId);
 
     }
 
 
-        @PostMapping
-        public AlunoMatriculaDtoSaida cadastrar (@RequestBody @Valid AlunoDtoEntrada alunoDtoEntrada){
-            logger.debug("Iniciando cadastro de aluno...");
+    @PostMapping
+    public AlunoMatriculaDtoSaida cadastrar(@RequestBody @Valid AlunoDtoEntrada alunoDtoEntrada) {
+        logger.debug("Iniciando cadastro de aluno...");
 
-            Aluno aluno = getAluno(alunoDtoEntrada);
+        Aluno aluno = getAluno(alunoDtoEntrada);
 
-            // Criar matrícula com a data atual
-            Matricula matricula = new Matricula();
-            matricula.setDataMatricula(LocalDate.now());
-            matriculaService.salvarMatricula(matricula);
-            aluno.setMatricula(matricula);
-
-
-            // Chamar o serviço para cadastrar o aluno
-            Aluno alunoSalvo = alunoService.cadastrar(aluno);
+        // Criar matrícula com a data atual
+        Matricula matricula = new Matricula();
+        matricula.setDataMatricula(LocalDate.now());
+        matriculaService.salvarMatricula(matricula);
+        aluno.setMatricula(matricula);
 
 
-            AlunoMatriculaDtoSaida alunoMatriculaDtoSaida = getAlunoMatriculaDtoSaida(matricula, alunoSalvo);
+        // Chamar o serviço para cadastrar o aluno
+        Aluno alunoSalvo = alunoService.cadastrar(aluno);
+        System.out.println(alunoSalvo);
 
-            logger.debug("Aluno cadastrado com sucesso.");
 
-            return alunoMatriculaDtoSaida;
+        AlunoMatriculaDtoSaida alunoMatriculaDtoSaida = getAlunoMatriculaDtoSaida(matricula, alunoSalvo);
 
-        }
+        logger.debug("Aluno cadastrado com sucesso.");
 
-        private Aluno getAluno (AlunoDtoEntrada alunoDtoEntrada){
-            Aluno aluno = new Aluno();
-
-            // Preencher informações do aluno
-            aluno.setNome(alunoDtoEntrada.getNome());
-            aluno.setIdade(alunoDtoEntrada.getIdade());
-            aluno.setCpf(alunoDtoEntrada.getCpf());
-            aluno.setTelefone(alunoDtoEntrada.getTelefone());
-            aluno.setEmail(alunoDtoEntrada.getEmail());
-
-            // Preencher endereço
-            Endereco endereco = new Endereco();
-            endereco.setId(alunoDtoEntrada.getEnderecoIdDtoEntrada().getEnderecoId());
-            aluno.setEndereco(endereco);
-
-            // Preencher curso
-            Curso curso = new Curso();
-            curso.setId(alunoDtoEntrada.getCursoIdDtoEntrada().getCursoId());
-            aluno.setCurso(curso);
-
-            // Preencher turma
-            Turma turma = new Turma();
-            turma.setId(alunoDtoEntrada.getTurmaIdDtoEntrada().getTurmaId());
-            aluno.setTurma(turma);
-            return aluno;
-        }
-
-        private AlunoMatriculaDtoSaida getAlunoMatriculaDtoSaida (Matricula matricula, Aluno alunoSalvo){
-            // Converter para DTO de saída
-            AlunoMatriculaDtoSaida alunoMatriculaDtoSaida = new AlunoMatriculaDtoSaida();
-
-            alunoMatriculaDtoSaida.setId(alunoSalvo.getId());
-            alunoMatriculaDtoSaida.setNome(alunoSalvo.getNome());
-
-            // Preencher matrícula
-            MatriculaDtoSaida matriculaDtoSaida = new MatriculaDtoSaida();
-            matriculaDtoSaida.setId(matricula.getId());
-            matriculaDtoSaida.setDataMatricula(matricula.getDataMatricula());
-            alunoMatriculaDtoSaida.setMatricula(matriculaDtoSaida);
-
-            // Preencher curso e turma
-            CursoModel cursoDtoSaida = new CursoModel();
-            cursoDtoSaida.setId(alunoSalvo.getCurso().getId());
-            cursoDtoSaida.setNome(alunoSalvo.getCurso().getNome());
-            alunoMatriculaDtoSaida.setCurso(cursoDtoSaida);
-
-            TurmaModel turmaDtoSaida = new TurmaModel();
-            turmaDtoSaida.setId(alunoSalvo.getTurma().getId());
-            turmaDtoSaida.setNome(alunoSalvo.getTurma().getNome());
-            alunoMatriculaDtoSaida.setTurma(turmaDtoSaida);
-
-            return alunoMatriculaDtoSaida;
-
-        }
-
+        return alunoMatriculaDtoSaida;
 
     }
+
+    private Aluno getAluno(AlunoDtoEntrada alunoDtoEntrada) {
+        Aluno aluno = new Aluno();
+
+        // Preencher informações do aluno
+        aluno.setNome(alunoDtoEntrada.getNome());
+        aluno.setIdade(alunoDtoEntrada.getIdade());
+        aluno.setCpf(alunoDtoEntrada.getCpf());
+        aluno.setTelefone(alunoDtoEntrada.getTelefone());
+        aluno.setEmail(alunoDtoEntrada.getEmail());
+
+        // Preencher endereço
+        Endereco endereco = new Endereco();
+        endereco.setId(alunoDtoEntrada.getEnderecoIdDtoEntrada().getEnderecoId());
+        aluno.setEndereco(endereco);
+
+        // Preencher curso
+        Curso curso = new Curso();
+        curso.setId(alunoDtoEntrada.getCursoIdDtoEntrada().getCursoId());
+        aluno.setCurso(curso);
+
+        // Preencher turma
+        Turma turma = new Turma();
+        turma.setId(alunoDtoEntrada.getTurmaIdDtoEntrada().getTurmaId());
+        aluno.setTurma(turma);
+        return aluno;
+    }
+
+    private AlunoMatriculaDtoSaida getAlunoMatriculaDtoSaida(Matricula matricula, Aluno alunoSalvo) {
+        // Converter para DTO de saída
+        AlunoMatriculaDtoSaida alunoMatriculaDtoSaida = new AlunoMatriculaDtoSaida();
+
+        alunoMatriculaDtoSaida.setId(alunoSalvo.getId());
+        alunoMatriculaDtoSaida.setNome(alunoSalvo.getNome());
+
+        // Preencher matrícula
+        MatriculaDtoSaida matriculaDtoSaida = new MatriculaDtoSaida();
+        matriculaDtoSaida.setId(matricula.getId());
+        matriculaDtoSaida.setDataMatricula(matricula.getDataMatricula());
+        alunoMatriculaDtoSaida.setMatricula(matriculaDtoSaida);
+
+        // Preencher curso e turma
+        CursoModel cursoDtoSaida = new CursoModel();
+        cursoDtoSaida.setId(alunoSalvo.getCurso().getId());
+        cursoDtoSaida.setNome(alunoSalvo.getCurso().getNome());
+        alunoMatriculaDtoSaida.setCurso(cursoDtoSaida);
+
+        TurmaModel turmaDtoSaida = new TurmaModel();
+        turmaDtoSaida.setId(alunoSalvo.getTurma().getId());
+        turmaDtoSaida.setNome(alunoSalvo.getTurma().getNome());
+        alunoMatriculaDtoSaida.setTurma(turmaDtoSaida);
+
+        return alunoMatriculaDtoSaida;
+
+    }
+
+
+}

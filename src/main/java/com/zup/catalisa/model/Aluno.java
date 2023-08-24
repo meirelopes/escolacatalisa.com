@@ -37,7 +37,7 @@ public class Aluno extends Pessoa {
     private Matricula matricula;
     @ManyToOne
     private Curso curso;
-    @ManyToMany
+    @ManyToMany(mappedBy = "alunos")
     private List<Disciplina> disciplinas = new ArrayList<>();
     @ManyToOne
     //@JoinColumn(name = "turma_codigo")

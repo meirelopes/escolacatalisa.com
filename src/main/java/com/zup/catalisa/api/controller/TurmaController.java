@@ -34,9 +34,11 @@ public class TurmaController {
 
 
     @PostMapping
-    public TurmaModel cadastrar(@RequestBody Turma turma) {
+    public Turma cadastrar(@RequestBody Turma turma) {
 
-        return turmaModelAssembler.toModel(turmaService.cadastrar(turma));
+        return turmaService.cadastrar(turma);
+
+        //return turmaModelAssembler.toModel(turmaService.cadastrar(turma));
 
     }
 }

@@ -2,6 +2,7 @@ package com.zup.catalisa.service;
 
 import com.zup.catalisa.api.controller.AlunoController;
 import com.zup.catalisa.model.Aluno;
+import com.zup.catalisa.model.Curso;
 import com.zup.catalisa.model.Turma;
 import com.zup.catalisa.repository.TurmaRepository;
 import org.slf4j.Logger;
@@ -15,6 +16,8 @@ import java.util.Optional;
 public class TurmaService {
     @Autowired
     private TurmaRepository turmaRepository;
+    @Autowired
+    private CursoService cursoService;
 
     private static final Logger logger = LoggerFactory.getLogger(AlunoController.class);
 
@@ -26,10 +29,20 @@ public class TurmaService {
 
 
     public Turma cadastrar(Turma turma) {
-        logger.debug(turma.getCurso().getNome());
+
+        Long cursoId = turma.getCurso().getId();
+
+        Curso curso = cursoService.listarPorId(cursoId).orElse(null);
 
 
-        return turmaRepository.save(turma);
+        if (cursoId != null) {
+
+            turma.getCurso().setId(cursoId);
+            return turmaRepository.save(turma);
+
+        }
+
+        return null;
 
     }
 

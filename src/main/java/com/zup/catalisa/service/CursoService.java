@@ -31,6 +31,8 @@ public class CursoService {
 
     public Curso cadastrar(Curso curso) {
 
+
+
         return cursoRepository.save(curso);
 
     }

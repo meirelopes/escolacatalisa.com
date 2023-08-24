@@ -42,7 +42,9 @@ public class AlunoService {
     @Transactional
     public Aluno cadastrar(Aluno aluno) {
 
-        return alunoRepository.save(aluno);
+        aluno = alunoRepository.save(aluno);
+
+        return buscarPorId(aluno.getId()).get();
 
     }
 
@@ -55,6 +57,7 @@ public class AlunoService {
     public Disciplina adicionarDisciplina(Long disciplinaId, Long alunoId) {
 
         Disciplina disciplina = disciplinaService.listarPorId(disciplinaId).orElse(null);
+        System.out.println(disciplina.getNome());
 
         Aluno aluno = buscarPorId(alunoId).orElse(null);
 

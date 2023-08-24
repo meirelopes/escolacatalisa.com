@@ -1,6 +1,7 @@
 package com.zup.catalisa.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Curso {
 
     @JsonIgnore
     @OneToMany
+    @JoinTable
     private List<Matricula> matriculas = new ArrayList<>();
 
 }

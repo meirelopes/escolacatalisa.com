@@ -16,5 +16,4 @@ public class Matricula {
     private Long id;
     private LocalDate dataMatricula;
 
-
 }

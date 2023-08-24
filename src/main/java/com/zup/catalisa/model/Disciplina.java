@@ -21,6 +21,9 @@ public class Disciplina {
     @ManyToOne
     private Professor professor;
     @ManyToMany
+    @JoinTable(name = "disciplinas_alunos", joinColumns = @JoinColumn(name = "disciplina_fk"),
+    inverseJoinColumns = @JoinColumn(name = "aluno_fk"))
+
     private List<Aluno> alunos;
 
 }
