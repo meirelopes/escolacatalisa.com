@@ -24,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 import java.util.Optional;
+
 @WebMvcTest(CursoController.class)
 public class CursoControllerTest {
 
@@ -42,7 +43,6 @@ public class CursoControllerTest {
         RestAssuredMockMvc.standaloneSetup(this.cursoController);
 
     }
-
 
     @Test
     public void deveRetornarSucessoEUmCurso_QuandoBuscarCurso() {
@@ -78,7 +78,7 @@ public class CursoControllerTest {
     }
 
     @Test
-    public void deveRetornarUmCurso_QuandoBuscarUmCurso() throws Exception {
+    public void deveRetornarUmCursoEStatusOk_QuandoBuscarUmCurso() throws Exception {
 
         Curso curso = new Curso();
         curso.setId(1L);
@@ -90,10 +90,9 @@ public class CursoControllerTest {
 
         mockMvc.perform(get("/cursos/{id}", 1L)) // Substitua 1L pelo ID desejado
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.nome").value("Engenharia Civil"))
-                .andExpect(jsonPath("$.cargaHoraria").value(3600));
-
+                .andExpect(jsonPath("$.id").value(curso.getId()))
+                .andExpect(jsonPath("$.nome").value(curso.getNome()))
+                .andExpect(jsonPath("$.cargaHoraria").value(curso.getCargaHoraria()));
 
     }
 
@@ -108,13 +107,13 @@ public class CursoControllerTest {
         Mockito.when(cursoService.cadastrar(curso)).thenReturn(curso);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/cursos")
-                            .contentType("application/json")
+                        .contentType("application/json")
                         .content(objectMapper.writeValueAsString(curso)))
-                    .andExpect(status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))  // Verifica o ID retornado
                 .andExpect(jsonPath("$.nome").value("Engenharia Civil"))  // Verifica o nome retornado
                 .andExpect(jsonPath("$.cargaHoraria").value(3600));  // Verifica a cargaHoraria retornado
     }
 
-    }
+}
 
