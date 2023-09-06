@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -69,6 +70,63 @@ public class AlunoControllerTest {
         disciplina.setCurso(curso);
 
         Mockito.when(alunoService.adicionarDisciplina(1L, 1L)).thenReturn(disciplina);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/alunos/adicionardisciplina/{disciplinaId}/{alunoId}", 1L, 1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(disciplina.getId()))  // Verifica o ID retornado
+                .andExpect(jsonPath("$.nome").value(disciplina.getNome()))  // Verifica o nome retornado
+                .andExpect(jsonPath("$.cargaHoraria").value(disciplina.getCargaHoraria()))
+                .andExpect(jsonPath("$.curso.id").value(disciplina.getCurso().getId()));
+    }
+
+    @Test
+    public void deveRetornarStatusOkEUmaDisciplina_QuandoCadastrarUmaDisciplinaAUmAluno2() throws Exception {
+        Curso curso = new Curso();
+
+
+        Matricula matricula = new Matricula();
+
+
+        Aluno aluno = new Aluno();
+        aluno.setCurso(curso);
+        aluno.setMatricula(matricula);
+        aluno.setId(1L);
+
+
+        Disciplina disciplina = new Disciplina();
+
+        disciplina.setCurso(curso);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/alunos/adicionardisciplina/{disciplinaId}/{alunoId}", 1L, 1L))
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void deveRetornarStatusOkEUmaDisciplina_QuandoCadastrarUmaDisciplinaAUmAluno3() throws Exception {
+
+        Curso curso = new Curso();
+        curso.setId(1L);
+        curso.setNome("Engenharia Civil");
+        curso.setCargaHoraria(3600);
+
+        Matricula matricula = new Matricula();
+        matricula.setDataMatricula(LocalDate.now());
+        matricula.setId(1L);
+
+        Aluno aluno = new Aluno();
+        aluno.setNome("Jucemeire Marques Lopes");
+        aluno.setCpf("00000000000");
+        aluno.setCurso(curso);
+        aluno.setMatricula(matricula);
+        aluno.setId(1L);
+
+
+        Disciplina disciplina = new Disciplina();
+        disciplina.setId(1L);
+        disciplina.setNome("Cálculo I");
+        disciplina.setCargaHoraria(60);
+        disciplina.setCurso(curso);
+
+        //Mockito.when(alunoService.adicionarDisciplina(1L, 1L)).thenReturn(disciplina);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/alunos/adicionardisciplina/{disciplinaId}/{alunoId}", 1L, 1L))
                 .andExpect(status().isOk())
